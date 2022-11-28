@@ -7,26 +7,37 @@ warning off
 % options = saoptimset('MaxFunEvals',4000,'TemperatureFcn',@temperatureboltz,'AnnealingFcn',@annealingboltz);
 % [x,IAE,~,output] = simulannealbnd(@(x)isecomp(x),[100 100],[50;50],[50;500],options);%,@(x)horu(x));%,options);
 
-%Genetic algorithm
 
-% options = gaoptimset('Generations',20,'PopulationSize',20);
-% [x,IAE,~,output] = ga(@(x)isecomp(x),2,[],[],[],[],[100;0],[550;500],[],[],options);%,@(x)horu(x));%,options);
+% funcao_objetivo=0;
+%     while funcao_objetivo==0
+x0 = [randi([0,20]) randi([0,20]) randi([0,20])];
+%     L=L_ponto_a_ponto(M,C,K,b,d,tau,w,x0);
+%     ff=(min(sqrt((real(L)+1).^2+imag(L).^2))-Ms^-1)^2; 
+%     disp(['ff:  ', num2str(ff)])
+%     c=max((-(real(L)+1)./((real(L)+1).^2+imag(L).^2).^0.5));
+%     disp(['c:  ', num2str(c)])
+%         if (ff<0.5 && c<0.9)
+%             funcao_objetivo=1;
+%             disp(['entrou dentro da condição:  ', num2str(ff)])
+%nonlcon = @(x,M,C,K,b,d,tau,w,Ms)creterian(x,M,C,K,b,d,tau,w,Ms);
 
 options = psoptimset('MaxFunEvals',4000);
-x0 = [randi([0,20]) randi([0,20]) randi([0,20])];
-L=L_ponto_a_ponto(M,C,K,b,d,tau,w,x0);
-ff=(min(sqrt((real(L)+1).^2+imag(L).^2))-Ms^-1)^2; 
-c=max((-(real(L)+1)./((real(L)+1).^2+imag(L).^2).^0.5));
-if (ff<1e-12 && c<0.9)
-
-    
-end
-[x,IAE,~,output] = patternsearch(@(x)isecomp(x),x0,[],[],[],[],[0;0;0],[10;10;10],[],options);%,@(x)horu(x));%,options);
+%options = optimoptions('patternsearch','Display','iter','PlotFcn',@psplotbestf);
+[x,IAE,~,output] = patternsearch(@(x)isecomp(x),x0,[],[],[],[],[0;0;0],[10;10;10],@(x,M,C,K,b,d,tau,w,Ms)creterian(x,M,C,K,b,d,tau,w,Ms),options);%,@(x)horu(x));%,options);
 
 kp = x(1);
 ki = x(2);
 kd = x(3);
 performance = output;
+
+%end
+    %end
+%Genetic algorithm
+
+%options = gaoptimset('Generations',20,'PopulationSize',3);
+%[x,IAE,~,output] = ga(@(x)isecomp(x),3,[],[],[],[],[100;0],[550;500],[],[],options);%,@(x)horu(x));%,options);
+
+
 
 end
 
@@ -49,4 +60,12 @@ sim('secorderpid2nd.slx');
 
 f = IAE(length(IAE))
 
+end
+
+function [c, ceq] = creterian(x,M,C,K,b,d,tau,w,Ms)
+    L=L_ponto_a_ponto(M,C,K,b,d,tau,w,x);
+    ff=(min(sqrt((real(L)+1).^2+imag(L).^2))-Ms^-1)^2; 
+    distance=max((-(real(L)+1)./((real(L)+1).^2+imag(L).^2).^0.5));
+    c = distance - 0.9;
+    ceq = [];
 end
