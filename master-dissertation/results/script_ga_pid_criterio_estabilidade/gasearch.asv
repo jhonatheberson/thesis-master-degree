@@ -86,7 +86,7 @@ y=Ms^-1*sin(theta);
 hold on
 plot(x,y,'r','LineWidth',1.5)
 plot(-1,0,'rx','LineWidth',1.5)
-axis([-3 1 -2 2])
+axi
 xlabel('Real Axis','FontSize', 12,'Interpreter','latex')
 ylabel('Imaginary Axis','FontSize', 12,'Interpreter','latex')
 title('Nyquist Curve Loop Gain $L(j\omega)$','interpreter','latex')
@@ -104,7 +104,7 @@ s=tf('s');
 % title('Closed Loop Poles','interpreter','latex')
 % legend({'Closed Loop Poles','Desired Poles'},'interpreter','latex','fontsize',10,'Location','best')
 
-KP = k(1);
-KI = k(2);
-KD = k(3);
+kp = k(1);
+ki = k(2);
+kd = k(3);
 end
