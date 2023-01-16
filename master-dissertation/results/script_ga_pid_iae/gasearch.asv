@@ -70,7 +70,7 @@ c=max((-(real(L)+1)./((real(L)+1).^2+imag(L).^2).^0.5));
 IAE = isecomp(x0);
 disp(['IAE:  ', num2str(IAE)])
 %[x,IAE,~,output] = patternsearch(@(x)isecomp(x),x0,[],[],[],[],[0;0;0],[10;10;10],@(x,M,C,K,b,d,tau,w,Ms)creterian(x,M,C,K,b,d,tau,w,Ms),options);%,@(x)horu(x));%,options);
-if (ff<0.6 && c<0.9 && IAE<2) || (exec>2 && c<0.9 && IAE<0.9)
+if (ff<0.6 && c<0.9 && IAE<0.9) || (exec>2 && c<0.9 && IAE<0.9)
 %if (ff<0.00001 && c<0.9) || (exec>2 && c<0.9)
     funcao_objetivo=1;
     melhor_individuo=nova_populacao(1,:);
