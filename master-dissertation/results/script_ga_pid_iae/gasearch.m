@@ -1,4 +1,4 @@
-function melhor_individuo=gasearch(M,C,K,b,d,tau,w,Ms,Lamb)
+function melhor_individuo=gasearch(M,C,K,b,d,tau,w,Ms)
 
 warning off
 
@@ -40,6 +40,7 @@ disp(['Execução:  ', num2str(exec+1)])
 for geracao=1:100
     avaliacao=[0 0 0];
     if exec>0
+        disp(['Execucao:  ', num2str(exec)])
         nova_populacao=10*rand(100, 3);
     end
     for a=1:size(nova_populacao,1)
@@ -59,7 +60,7 @@ disp(['Geração:  ', num2str(geracao)])
 nova_populacao=ordenacao(nova_populacao);
 disp(['Melhor Avaliação:  ', num2str(avaliacao(1,:))])
 %Fazendo Crossover
-nova_populacao=crossover2(nova_populacao(1:100,1:end-2));
+nova_populacao=crossover2(nova_populacao(1:100,1:end-3));
 %Verificando se o melhor indíviduo atende a resposta
 %x0 = (k0+V*nova_populacao(1,:)')';
 x0 = nova_populacao(1,:);
@@ -70,7 +71,7 @@ c=max((-(real(L)+1)./((real(L)+1).^2+imag(L).^2).^0.5));
 IAE = isecomp(x0);
 disp(['IAE:  ', num2str(IAE)])
 %[x,IAE,~,output] = patternsearch(@(x)isecomp(x),x0,[],[],[],[],[0;0;0],[10;10;10],@(x,M,C,K,b,d,tau,w,Ms)creterian(x,M,C,K,b,d,tau,w,Ms),options);%,@(x)horu(x));%,options);
-if (ff<0.6 && c<0.9 && IAE<2) || (exec>2 && c<0.9 && IAE<0.9)
+if (ff<0.6 && c<0.9 && IAE<2.62) || (exec>2 && c<0.9)
 %if (ff<0.00001 && c<0.9) || (exec>2 && c<0.9)
     funcao_objetivo=1;
     melhor_individuo=nova_populacao(1,:);
