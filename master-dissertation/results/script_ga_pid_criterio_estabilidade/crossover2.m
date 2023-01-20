@@ -1,4 +1,4 @@
-function nova_geracao=crossover2(populacao_atual,B,Lamb)
+function nova_geracao=crossover2(populacao_atual)
 
 % |Selecionando os pais|
 pais=populacao_atual(1,:);
@@ -27,5 +27,5 @@ for i=1:size(pais,1)-1
     i=i+1;  
 end
 if size(nova_geracao,1)<100
-    nova_geracao(size(nova_geracao,1)+1:100,:)=rand+randi([-1e3,1e3],100-size(nova_geracao,1),2*length(B)-length(Lamb));
+    nova_geracao(size(nova_geracao,1)+1:100,:)=5*rand(100-size(nova_geracao,1)+1, 3);
 end
