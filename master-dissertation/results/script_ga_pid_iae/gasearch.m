@@ -1,7 +1,7 @@
-function melhor_individuo=gasearch(M,C,K,b,d,tau,w,Ms)
+function [melhor_individuo, IAE]=gasearch(M,C,K,b,d,tau,w,Ms)
 
 warning off
-
+variable=1;
 %Geração das Matrizes G, h, k0 e V
 % for a=1:length(Lamb);
 % G(a,1:2*length(B))=[Lamb(a)*exp(-tauf*Lamb(a))*(inv(M*Lamb(a)^2 + D*Lamb(a) + K)*B).' exp(-taug*Lamb(a))*(inv(M*Lamb(a)^2 + D*Lamb(a) + K)*B).'];
@@ -17,6 +17,7 @@ warning off
 % k0=(G)\(h.');
 % V=null(G);    
 % end
+evalution = [];
 sizepopulation = 100;
 populacao_inicial = 10*rand(100, 3);
 %options = psoptimset('MaxFunEvals',4000);
@@ -71,12 +72,28 @@ c=max((-(real(L)+1)./((real(L)+1).^2+imag(L).^2).^0.5));
 IAE = isecomp(x0);
 disp(['IAE:  ', num2str(IAE)])
 %[x,IAE,~,output] = patternsearch(@(x)isecomp(x),x0,[],[],[],[],[0;0;0],[10;10;10],@(x,M,C,K,b,d,tau,w,Ms)creterian(x,M,C,K,b,d,tau,w,Ms),options);%,@(x)horu(x));%,options);
-if (ff<0.6 && c<0.9 && IAE<2.62) || (exec>2 && c<0.9)
+if (ff<0.6 && c<0.9 && IAE<0.9) || (exec>2 && c<0.9)
 %if (ff<0.00001 && c<0.9) || (exec>2 && c<0.9)
     funcao_objetivo=1;
     melhor_individuo=nova_populacao(1,:);
     break
 end
+
+
+%avalição de variabilidade genetica
+evalution(variable) = c;
+variable = variable + 1;
+if(length(evalution) > 10)
+    variable = 1;
+    evalution = evalution(2:end);
+    if (var(evalution) == 0)
+    funcao_objetivo=1;
+    melhor_individuo=nova_populacao(1,:);
+    break
+    end
+end
+
+
 geracao=geracao+1;
 end
 exec=exec+1;
@@ -104,18 +121,21 @@ title('Nyquist Curve Loop Gain $L(j\omega)$','interpreter','latex')
 legend({'Nyquist Curve','$\mbox{M}_{\mbox{s}}$ Circle'},'interpreter','latex')
 legend boxoff
 s=tf('s');
-% Hhat=inv(M*s^2+(C-b*k(1:length(b))*exp(-s*tau))*s+(K-b*k(length(b)+1:end)*exp(-s*tau)));
-% p=pole(pade(Hhat,3));
-% figure(2)
-% plot(real(p),imag(p),'x')
-% hold on
-% plot(real(Lamb),imag(Lamb),'o','linewidth',1.5)
-% xlabel('Re','FontSize', 12,'Interpreter','latex')
-% ylabel('Im','FontSize', 12,'Interpreter','latex')
-% title('Closed Loop Poles','interpreter','latex')
-% legend({'Closed Loop Poles','Desired Poles'},'interpreter','latex','fontsize',10,'Location','best')
+Hhat=inv(M*s^2+C*s+K+(b*d*(k(3)+(k(2)/s)+(s*k(1)))*exp(-s*tau)));
+p=pole(pade(Hhat,3));
+figure(2)
+plot(real(p),imag(p),'x')
+hold on
+%plot(real(Lamb),imag(Lamb),'o','linewidth',1.5)
+xlabel('Re','FontSize', 12,'Interpreter','latex')
+ylabel('Im','FontSize', 12,'Interpreter','latex')
+title('Closed Loop Poles','interpreter','latex')
+legend({'Closed Loop Poles','Desired Poles'},'interpreter','latex','fontsize',10,'Location','best')
 
-
+IAE = isecomp(k);
+disp(['melhor_individuo:  ', num2str(melhor_individuo)])
+disp(['Melhor Avaliação:  ', num2str(avaliacao(1,:))])
+disp(['IAE:  ', num2str(IAE)])
 end
 
 
