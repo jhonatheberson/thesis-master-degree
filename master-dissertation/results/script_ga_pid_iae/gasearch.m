@@ -81,12 +81,12 @@ end
 
 
 %avalição de variabilidade genetica
-evalution(variable) = c;
+evalution(variable) = IAE;
 variable = variable + 1;
 if(length(evalution) > 10)
     variable = 1;
     evalution = evalution(2:end);
-    if (var(evalution) == 0)
+    if (var(evalution) < 0.0000001)
     funcao_objetivo=1;
     melhor_individuo=nova_populacao(1,:);
     break
@@ -115,10 +115,14 @@ y=Ms^-1*sin(theta);
 hold on
 plot(x,y,'r','LineWidth',1.5)
 plot(-1,0,'rx','LineWidth',1.5)
-xlabel('Real Axis','FontSize', 12,'Interpreter','latex')
-ylabel('Imaginary Axis','FontSize', 12,'Interpreter','latex')
-title('Nyquist Curve Loop Gain $L(j\omega)$','interpreter','latex')
-legend({'Nyquist Curve','$\mbox{M}_{\mbox{s}}$ Circle'},'interpreter','latex')
+%xlabel('Real Axis','FontSize', 12,'Interpreter','latex')
+xlabel('Eixo Real','FontSize', 12,'Interpreter','latex')
+%ylabel('Imaginary Axis','FontSize', 12,'Interpreter','latex')
+ylabel('Eixo Imaginário','FontSize', 12,'Interpreter','latex')
+%title('Nyquist Curve Loop Gain $L(j\omega)$','interpreter','latex')
+title('Diagrama de Nyquist de $L(j\omega)$','interpreter','latex')
+%legend({'Nyquist Curve','$\mbox{M}_{\mbox{s}}$ Circle'},'interpreter','latex')
+legend({'Curva de Nyquist','Circulo $\mbox{M}_{\mbox{s}}$'},'interpreter','latex')
 legend boxoff
 s=tf('s');
 Hhat=inv(M*s^2+C*s+K+(b*d*(k(3)+(k(2)/s)+(s*k(1)))*exp(-s*tau)));
