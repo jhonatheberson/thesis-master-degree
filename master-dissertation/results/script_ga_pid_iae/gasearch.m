@@ -133,8 +133,21 @@ hold on
 %plot(real(Lamb),imag(Lamb),'o','linewidth',1.5)
 xlabel('Re','FontSize', 12,'Interpreter','latex')
 ylabel('Im','FontSize', 12,'Interpreter','latex')
-title('Closed Loop Poles','interpreter','latex')
-legend({'Closed Loop Poles','Desired Poles'},'interpreter','latex','fontsize',10,'Location','best')
+%title('Closed Loop Poles','interpreter','latex')
+title('Polos de malha fechada','interpreter','latex')
+%legend({'Closed Loop Poles','Desired Poles'},'interpreter','latex','fontsize',10,'Location','best')
+legend({'Polos de malha fechada','Desired Poles'},'interpreter','latex','fontsize',10,'Location','best')
+
+figure(3)
+%plot simulação
+plot(tempo,estados_x(:,1),'--','linewidth',2.0)
+xlabel('$Tempo (s)$','FontSize', 10,'Interpreter','latex')
+ylabel('$Sinal$','FontSize', 10,'Interpreter','latex')
+hold on
+%grid on
+plot(tempo,estados_x(:,2),'-','linewidth',2.0)
+legend('Referência','Sinal')
+title('simulação do sistema')
 
 IAE = isecomp(k);
 disp(['melhor_individuo:  ', num2str(melhor_individuo)])
