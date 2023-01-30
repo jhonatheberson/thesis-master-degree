@@ -19,7 +19,7 @@ variable=1;
 % end
 evalution = [];
 sizepopulation = 100;
-populacao_inicial = 10*rand(100, 3);
+populacao_inicial = randi(10)*rand(100, 3);
 % Populaçao inicial
 
 % for a=1:length(sizepopulation)
@@ -39,11 +39,11 @@ disp(['Execução:  ', num2str(exec+1)])
 for geracao=1:100
     avaliacao=[0 0];
     if exec>0
-        nova_populacao(2:100,:)=10*rand(100, 3);
+        nova_populacao(2:100,:)=randi(10)*rand(100, 3);
     end
     for a=1:size(nova_populacao,1)
         %L=L_ponto_a_ponto(M,D,K,B,tauf,taug,w,(k0+V*nova_populacao(a,:)')');
-        L=L_ponto_a_ponto(M,C,K,b,d,tau,w,nova_populacao(a,:));
+        L=L_ponto_a_ponto(M,C,K,b,d,tau,w,nova_populacao(a,1:3));
         ff=(min(sqrt((real(L)+1).^2+imag(L).^2))-Ms^-1)^2;  
         c=max((-(real(L)+1)./((real(L)+1).^2+imag(L).^2).^0.5));
         avaliacao(a,1:end)=[ff c];
@@ -61,7 +61,7 @@ nova_populacao=crossover2(nova_populacao(1:100,1:end-2));
 %Verificando se o melhor indíviduo atende a resposta
 %x0 = (k0+V*nova_populacao(1,:)')';
 x0 = nova_populacao(1,:);
-L=L_ponto_a_ponto(M,C,K,b,d,tau,w,nova_populacao(1,:));
+L=L_ponto_a_ponto(M,C,K,b,d,tau,w,nova_populacao(1,1:3));
 %L=L_ponto_a_ponto(M,D,K,B,tauf,taug,w,nova_populacao(1,:));
 ff=(min(sqrt((real(L)+1).^2+imag(L).^2))-Ms^-1)^2; 
 c=max((-(real(L)+1)./((real(L)+1).^2+imag(L).^2).^0.5));
@@ -75,7 +75,7 @@ end
 %avalição de variabilidade genetica
 evalution(variable) = c;
 variable = variable + 1;
-if(length(evalution) > 10)
+if(length(evalution) > 10 && funcao_objetivo ~= 1)
     variable = 1;
     evalution = evalution(2:end);
     if (var(evalution) < 0.1)
@@ -111,6 +111,7 @@ legend boxoff
 s=tf('s');
 Hhat=inv(M*s^2+C*s+K+(b*d*(k(3)+(k(2)/s)+(s*k(1)))*exp(-s*tau)));
 p=pole(pade(Hhat,3));
+%disp(p)
 figure(2)
 plot(real(p),imag(p),'x')
 hold on
@@ -122,6 +123,9 @@ legend({'Closed Loop Poles','Desired Poles'},'interpreter','latex','fontsize',10
 
 
 IAE = isecomp(k);
+
+
+
 disp(['melhor_individuo:  ', num2str(melhor_individuo)])
 disp(['Melhor Avaliação:  ', num2str(avaliacao(1,:))])
 disp(['IAE:  ', num2str(IAE)])

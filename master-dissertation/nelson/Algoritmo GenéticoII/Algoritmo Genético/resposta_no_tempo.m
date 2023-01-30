@@ -1,29 +1,29 @@
-% k1=(k0+V*melhor_individuo_ms1333')';
-% f=k1(1:length(B));
-% g=k1(length(B)+1:2*length(B));
+k1=(k0+V*melhor_individuo')';
+f=k1(1:length(B));
+g=k1(length(B)+1:2*length(B));
 
-sim('SFCWTD_sim');
-subplot(2,2,1)
-plot(tempo,estados_x(:,1),'linewidth',2.0)
-xlabel('$t$','FontSize', 10,'Interpreter','latex')
-ylabel('$q_1(t)$','FontSize', 10,'Interpreter','latex')
-subplot(2,2,2)
-plot(tempo,estados_x(:,2),'linewidth',2.0)
-xlabel('$t$','FontSize', 10,'Interpreter','latex')
-ylabel('$q_2(t)$','FontSize', 10,'Interpreter','latex')
-subplot(2,2,3)
-plot(tempo,estados_x(:,3),'linewidth',2.0)
-xlabel('$t$','FontSize', 10,'Interpreter','latex')
-ylabel('$q_3(t)$','FontSize', 10,'Interpreter','latex')
-subplot(2,2,4)
-plot(tempo,estados_x(:,4),'linewidth',2.0)
-xlabel('$t$','FontSize', 10,'Interpreter','latex')
-ylabel('$q_4(t)$','FontSize', 10,'Interpreter','latex')
+%sim('SFCWTD_sim');
+%subplot(2,2,1)
+%plot(tempo,estados_x(:,1),'linewidth',2.0)
+%xlabel('$t$','FontSize', 10,'Interpreter','latex')
+%ylabel('$q_1(t)$','FontSize', 10,'Interpreter','latex')
+%subplot(2,2,2)
+%plot(tempo,estados_x(:,2),'linewidth',2.0)
+%xlabel('$t$','FontSize', 10,'Interpreter','latex')
+%ylabel('$q_2(t)$','FontSize', 10,'Interpreter','latex')
+%subplot(2,2,3)
+%plot(tempo,estados_x(:,3),'linewidth',2.0)
+%xlabel('$t$','FontSize', 10,'Interpreter','latex')
+%ylabel('$q_3(t)$','FontSize', 10,'Interpreter','latex')
+%subplot(2,2,4)
+%plot(tempo,estados_x(:,4),'linewidth',2.0)
+%xlabel('$t$','FontSize', 10,'Interpreter','latex')
+%ylabel('$q_4(t)$','FontSize', 10,'Interpreter','latex')
 
-% k2=(k0+V*melhor_individuo')';
-% f=k2(1:length(B));
-% g=k2(length(B)+1:2*length(B));
-f=F';g=G';
+k2=(k0+V*melhor_individuo')';
+f=k2(1:length(B));
+g=k2(length(B)+1:2*length(B));
+%f=F';g=G';
 sim('SFCWTD_sim')
 
 subplot(2,2,1)
