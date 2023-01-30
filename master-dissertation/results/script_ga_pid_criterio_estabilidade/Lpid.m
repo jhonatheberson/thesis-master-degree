@@ -3,8 +3,8 @@ function L=Lpid(M,D,K,B,d,tau,w,x)
 
 kp=x(1);
 %kp=0;
-ki=x(2);
-%ki=0.1;
+%ki=x(2);
+ki=0.1;
 kd=x(3);
 %kd=0;
 for a=1:length(w)

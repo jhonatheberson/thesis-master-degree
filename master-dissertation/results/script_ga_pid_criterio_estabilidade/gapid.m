@@ -53,7 +53,7 @@ end
 exec=exec+1;
 end
 
-%melhor_individuo(2) = 0;
+melhor_individuo(2) = 0.2;
 %melhor_individuo(3) = 0;
 k=melhor_individuo;
 kp = melhor_individuo(1);
