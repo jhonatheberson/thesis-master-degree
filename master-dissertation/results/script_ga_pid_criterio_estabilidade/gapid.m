@@ -21,8 +21,8 @@ for geracao=1:100
 %         L=L_ponto_a_ponto(M,D,K,B,tauf,taug,w,(k0+V*nova_populacao(a,:)')');
         L=Lpid(M,D,K,B,d,tau,w,nova_populacao(a,1:3));
         ff=(min(sqrt((real(L)+1).^2+imag(L).^2))-Ms^-1)^2;  
-%         c=max((-(real(L)+1)./((real(L)+1).^2+imag(L).^2).^0.5));
-        c=crosspid(L,0);
+        c=max((-(real(L)+1)./((real(L)+1).^2+imag(L).^2).^0.5));
+        %c=crosspid(L,0);
         avaliacao(a,1:end)=[ff c];
         a=a+1;
     end
@@ -41,8 +41,8 @@ nova_populacao=crossoverpid(nova_populacao(1:100,1:end-2));
 % L=L_ponto_a_ponto(M,D,K,B,tauf,taug,w,(k0+V*nova_populacao(1,:)')');
 L=Lpid(M,D,K,B,d,tau,w,nova_populacao(1,1:3));
 ff=(min(sqrt((real(L)+1).^2+imag(L).^2))-Ms^-1)^2; 
-% c=max((-(real(L)+1)./((real(L)+1).^2+imag(L).^2).^0.5))
-c=crosspid(L,0);
+c=max((-(real(L)+1)./((real(L)+1).^2+imag(L).^2).^0.5))
+%c=crosspid(L,0);
 if (ff<1e-3 && c<0.9) || (exec>2 && c<0.9)
     funcao_objetivo=1;
     melhor_individuo=nova_populacao(1,:);
@@ -53,7 +53,8 @@ end
 exec=exec+1;
 end
 
-
+%melhor_individuo(2) = 0;
+%melhor_individuo(3) = 0;
 k=melhor_individuo;
 kp = melhor_individuo(1);
 ki = melhor_individuo(2);
