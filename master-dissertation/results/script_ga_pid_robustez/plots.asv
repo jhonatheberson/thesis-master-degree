@@ -21,13 +21,12 @@ function plots(melhor_individuo,M,C,K,B,d,tau,w,Ms,simulink)
     title('Diagrama de Nyquist de $L(j\omega)$','interpreter','latex')
     %legend({'Nyquist Curve','$\mbox{M}_{\mbox{s}}$ Circle'},'interpreter','latex')
     legend({'Curva de Nyquist','Circulo $\mbox{M}_{\mbox{s}}$'},'interpreter','latex')
-    
-    % Plot Poles
     legend boxoff
     s=tf('s');
     Hchapeu=inv(M*s^2+C*s+K+B*d*(kp+(ki/s)+(kd*s))*exp(-s*tau));
     p=pole(pade(Hchapeu,3));
     disp(p)
+    % Plot Poles
     figure(2)
     plot(real(p),imag(p),'x')
     hold on
@@ -38,7 +37,6 @@ function plots(melhor_individuo,M,C,K,B,d,tau,w,Ms,simulink)
     %legend({'Closed Loop Poles','Desired Poles'},'interpreter','latex','fontsize',10,'Location','best')
     legend({'Polos de malha fechada','Desired Poles'},'interpreter','latex','fontsize',10,'Location','best')
     
-    % Plot Simulation
     figure(3)
     resposta_no_tempo(melhor_individuo, simulink);
 end
