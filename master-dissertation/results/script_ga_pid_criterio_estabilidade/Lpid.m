@@ -1,4 +1,4 @@
-function L=Lpid(M,D,K,B,d,tau,w,x)
+function L=Lpid(M,C,K,B,d,tau,w,x)
 %Geração de Ljw ponto a ponto
 
 kp=x(1);
@@ -9,8 +9,8 @@ kd=x(3);
 %kd=0;
 for a=1:length(w)
     b=j*w(a);
-    L(a)=(kp+ki/(b+0.0001)+b*kd)*d*inv(M*b^2+D*b+K)*B*exp(-tau*b);
-    %L(a)=-(x(length(B)+1:end)*exp(-1j*w(a)*taug)+1j*w(a)*x(1:length(B))*exp(-1j*w(a)*tauf))*inv(M*(1j*w(a))^2+D*1j*w(a)+K)*B;
+    L(a)=(kp+ki/(b+0.0001)+b*kd)*d*inv(M*b^2+C*b+K)*B*exp(-tau*b);
+    %L(a)=-(x(length(B)+1:end)*exp(-1j*w(a)*taug)+1j*w(a)*x(1:length(B))*exp(-1j*w(a)*tauf))*inv(M*(1j*w(a))^2+C*1j*w(a)+K)*B;
         a=a+1;
 end
 
