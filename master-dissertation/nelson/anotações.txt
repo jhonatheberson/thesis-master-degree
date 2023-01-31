@@ -1,0 +1,1 @@
+as funções principais são "gasearch" e "gasearcheinv2"
