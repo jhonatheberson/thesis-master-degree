@@ -1,8 +1,5 @@
 function plots(melhor_individuo,M,C,K,B,l,tau,w,Ms,simulink)
     % Plot Niquist
-    kp = melhor_individuo(1);
-    ki = melhor_individuo(2);
-    kd = melhor_individuo(3);
     L=Lpid(M,C,K,B,l,tau,w,melhor_individuo(1,1:3));
     plot(real(L),imag(L),':','linewidth',1.5)
     box off
