@@ -1,26 +1,8 @@
 function plots(melhor_individuo,M,C,K,B,d,tau,w,Ms,simulink)
-    % Plot Niquist
-    kp = melhor_individuo(1);
-    ki = melhor_individuo(2);
-    kd = melhor_individuo(3);
-    L=Lpid(M,C,K,B,d,tau,w,melhor_individuo(1,1:3));
-    plot(real(L),imag(L),':','linewidth',1.5)
-    box off
-    axis([-3 1 -2 2])
-    theta=0:1e-2:2*pi;
-    x=Ms^-1*cos(theta)-1;
-    y=Ms^-1*sin(theta);
-    hold on
-    plot(x,y,'r','LineWidth',1.5)
-    plot(-1,0,'rx','LineWidth',1.5)
-    %xlabel('Real Axis','FontSize', 12,'Interpreter','latex')
-    xlabel('Eixo Real','FontSize', 12,'Interpreter','latex')
-    %ylabel('Imaginary Axis','FontSize', 12,'Interpreter','latex')
-    ylabel('Eixo Imaginário','FontSize', 12,'Interpreter','latex')
-    %title('Nyquist Curve Loop Gain $L(j\omega)$','interpreter','latex')
-    title('Diagrama de Nyquist de $L(j\omega)$','interpreter','latex')
-    %legend({'Nyquist Curve','$\mbox{M}_{\mbox{s}}$ Circle'},'interpreter','latex')
-    legend({'Curva de Nyquist','Circulo $\mbox{M}_{\mbox{s}}$'},'interpreter','latex')
+     % Plot Niquist
+    
+     
+
     
     % Plot Poles
     legend boxoff
