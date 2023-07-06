@@ -6,11 +6,12 @@ function resposta_no_tempo(melhor_individuo, simulink)
     % Run Simulation
     sim(simulink);
     % Plot Simulation
-    plot(tempo,estados_x(:,1),'--','linewidth',2.0)
+    plot(tempo,estados_x(:,1),'r--','linewidth',1.5)
+    axis([0 60 00 1.4])
     xlabel('$Tempo (s)$','FontSize', 10,'Interpreter','latex')
     ylabel('$Sinal$','FontSize', 10,'Interpreter','latex')
     hold on
-    plot(tempo,estados_x(:,2),'-','linewidth',2.0)
-    legend('Referência','Sinal')
+    plot(tempo,estados_x(:,2),'-','linewidth',1.5)
+    legend({'$r(t)$','$y(t)$ - Robustez + IAE'}, 'interpreter','latex')
     title('simulação do sistema')
 end
