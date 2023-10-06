@@ -1,5 +1,8 @@
 function plots(melhor_individuo,M,C,K,B,l,tau,w,Ms,simulink)
     % Plot Niquist
+    kp = melhor_individuo(1);
+    ki = melhor_individuo(2);
+    kd = melhor_individuo(3);
     L=Lpid(M,C,K,B,l,tau,w,melhor_individuo(1,1:3));
     plot(real(L),imag(L),':','linewidth',1.5)
     box off
@@ -38,4 +41,8 @@ function plots(melhor_individuo,M,C,K,B,l,tau,w,Ms,simulink)
     % Plot Simulation
     figure(3)
     resposta_no_tempo(melhor_individuo, simulink);
+    
+    figure(4)
+    L = (kp+ki/(s+0.0001)+s*kd)*l*inv(M*s^2+C*s+K)*B*exp(-tau*s);
+    margin(L);
 end

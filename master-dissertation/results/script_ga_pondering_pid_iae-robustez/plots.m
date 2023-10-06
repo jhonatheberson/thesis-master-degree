@@ -43,4 +43,8 @@ function plots(melhor_individuo,M,C,K,B,d,tau,w,Ms,simulink)
     % Plot Simulation
     figure(3)
     resposta_no_tempo(melhor_individuo, simulink);
+    
+    figure(4)
+    L = (kp+ki/(s+0.0001)+s*kd)*d*inv(M*s^2+C*s+K)*B*exp(-tau*s);
+    margin(L);
 end
